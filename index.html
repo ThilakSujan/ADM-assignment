@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dronacharya – The Master of Warfare</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e8c96e;
+      --gold-dim: #7a5f28;
+      --ember: #b84a1a;
+      --deep: #0a0704;
+      --ink: #110d08;
+      --parchment: #f5ead0;
+      --smoke: #2a1f14;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--ink);
+      color: var(--parchment);
+      font-family: 'EB Garamond', serif;
+      font-size: 18px;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* ─── NOISE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: 0.4;
+    }
+
+    /* ─── HERO ─── */
+    header {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 70% at 50% 40%, #3d1e0a 0%, transparent 70%),
+        radial-gradient(ellipse 80% 50% at 20% 80%, #1a0a02 0%, transparent 60%),
+        var(--ink);
+    }
+
+    /* Decorative chakra/mandala ring behind title */
+    .mandala-ring {
+      position: absolute;
+      width: 520px; height: 520px;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -52%);
+      border: 1px solid rgba(201,168,76,0.12);
+      border-radius: 50%;
+      animation: slowSpin 60s linear infinite;
+    }
+    .mandala-ring::before {
+      content: '';
+      position: absolute; inset: 24px;
+      border: 1px solid rgba(201,168,76,0.18);
+      border-radius: 50%;
+    }
+    .mandala-ring::after {
+      content: '';
+      position: absolute; inset: 52px;
+      border: 1px dashed rgba(201,168,76,0.1);
+      border-radius: 50%;
+    }
+    @keyframes slowSpin { to { transform: translate(-50%, -52%) rotate(360deg); } }
+
+    /* Radiant glow orb */
+    .glow-orb {
+      position: absolute;
+      width: 300px; height: 300px;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -54%);
+      background: radial-gradient(circle, rgba(184,74,26,0.18) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: pulse 4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; transform: translate(-50%, -54%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%, -54%) scale(1.15); }
+    }
+
+    .eyebrow {
+      position: relative;
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.35em;
+      color: var(--gold-dim);
+      text-transform: uppercase;
+      margin-bottom: 1.4rem;
+      animation: fadeUp 1s ease 0.2s both;
+    }
+
+    header h1 {
+      position: relative;
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(2.6rem, 7vw, 5.2rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: 0.04em;
+      background: linear-gradient(160deg, var(--gold-light) 0%, var(--gold) 45%, #8a5e20 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeUp 1s ease 0.4s both;
+      text-shadow: none;
+      filter: drop-shadow(0 0 30px rgba(201,168,76,0.3));
+    }
+
+    .title-rule {
+      position: relative;
+      display: flex; align-items: center; gap: 1rem;
+      margin: 1.4rem auto;
+      width: min(500px, 80vw);
+      animation: fadeUp 1s ease 0.6s both;
+    }
+    .title-rule::before, .title-rule::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dim));
+    }
+    .title-rule::after { background: linear-gradient(90deg, var(--gold-dim), transparent); }
+    .title-rule span { color: var(--gold); font-size: 1.1rem; }
+
+    header h2 {
+      position: relative;
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      color: rgba(245,234,208,0.7);
+      letter-spacing: 0.08em;
+      animation: fadeUp 1s ease 0.7s both;
+    }
+
+    #sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex; gap: 0; flex-wrap: wrap; justify-content: center;
+      background: rgba(10,7,4,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      box-shadow: 0 4px 32px rgba(0,0,0,0.5);
+      padding: 0 1rem;
+      transition: background 0.3s;
+    }
+    #sticky-nav a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border: 1px solid rgba(201,168,76,0.6);
+      background: rgba(201,168,76,0.08);
+      transition: all 0.3s ease;
+      position: relative;
+      text-shadow: 0 0 14px rgba(201,168,76,0.5);
+      box-shadow: 0 0 14px rgba(201,168,76,0.08), inset 0 0 14px rgba(201,168,76,0.04);
+    }
+    #sticky-nav a::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%; right: 50%;
+      height: 2px;
+      background: var(--gold);
+      transition: left 0.3s ease, right 0.3s ease;
+    }
+    #sticky-nav a::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(201,168,76,0.18), rgba(201,168,76,0.04));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    #sticky-nav a:hover {
+      color: #fff;
+      border-color: var(--gold);
+      text-shadow: 0 0 22px rgba(232,201,110,0.95);
+      background: rgba(201,168,76,0.16);
+      box-shadow: 0 0 28px rgba(201,168,76,0.25), inset 0 0 18px rgba(201,168,76,0.08);
+    }
+    #sticky-nav a:hover::after { opacity: 1; }
+    #sticky-nav a:hover::before { left: 10%; right: 10%; }
+      background: rgba(201,168,76,0.16);
+      box-shadow: 0 0 28px rgba(201,168,76,0.25), inset 0 0 18px rgba(201,168,76,0.08);
+    }
+    #sticky-nav a:hover::after { opacity: 1; }
+    #sticky-nav a:hover::before { left: 10%; right: 10%; }
+
+
+    #sticky-nav a.active {
+      color: #fff;
+      border-bottom: 2px solid var(--gold);
+      background: rgba(201,168,76,0.13);
+      text-shadow: 0 0 18px rgba(232,201,110,0.8);
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      animation: fadeUp 1s ease 1.2s both;
+      opacity: 0.5;
+    }
+    .scroll-hint span { font-size: 0.65rem; letter-spacing: 0.3em; font-family: 'Cinzel', serif; color: var(--gold-dim); text-transform: uppercase; }
+    .scroll-arrow {
+      width: 1px; height: 36px;
+      background: linear-gradient(180deg, transparent, var(--gold-dim));
+      animation: dropLine 1.8s ease-in-out infinite;
+    }
+    @keyframes dropLine {
+      0% { transform: scaleY(0); transform-origin: top; opacity: 0; }
+      50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+      100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── SECTION BASE ─── */
+    section {
+      scroll-margin-top: 62px;
+      position: relative;
+      padding: 6rem clamp(1.5rem, 8vw, 10rem);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold-dim), transparent);
+      max-width: 120px;
+    }
+
+    h3 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 1.8rem;
+      letter-spacing: 0.04em;
+    }
+
+    p { line-height: 1.85; color: rgba(245,234,208,0.82); }
+
+    /* ─── SEPARATOR ─── */
+    .sep {
+      display: flex; align-items: center; justify-content: center; gap: 1.2rem;
+      padding: 1rem 0;
+    }
+    .sep-line { flex: 1; height: 1px; background: rgba(201,168,76,0.12); max-width: 200px; }
+    .sep-diamond {
+      width: 8px; height: 8px;
+      border: 1px solid var(--gold-dim);
+      transform: rotate(45deg);
+    }
+
+    /* ─── ABOUT ─── */
+    #about {
+      border-top: 1px solid rgba(201,168,76,0.08);
+    }
+
+    #about .content-wrap {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .drona-emblem {
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .emblem-circle {
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.3);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      background: radial-gradient(circle at 40% 35%, rgba(184,74,26,0.15), transparent 70%);
+    }
+    .emblem-circle::before {
+      content: '';
+      position: absolute; inset: 12px;
+      border-radius: 50%;
+      border: 1px dashed rgba(201,168,76,0.15);
+    }
+    .emblem-glyph {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 3.5rem;
+      color: var(--gold);
+      opacity: 0.85;
+      filter: drop-shadow(0 0 12px rgba(201,168,76,0.4));
+    }
+    .emblem-label {
+      position: absolute;
+      bottom: -2rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--gold-dim);
+      text-transform: uppercase;
+      text-align: center;
+      width: 100%;
+    }
+
+    @media (max-width: 700px) {
+      #about .content-wrap { grid-template-columns: 1fr; gap: 2rem; }
+      .drona-emblem { margin-bottom: 1rem; }
+    }
+
+    /* ─── TIMELINE ─── */
+    #timeline { background: none; }
+
+    .timeline-track {
+      position: relative;
+      padding-left: 2.5rem;
+    }
+    .timeline-track::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, var(--gold-dim) 15%, var(--gold-dim) 85%, transparent);
+    }
+
+    .tl-item {
+      position: relative;
+      margin-bottom: 3rem;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .tl-item.visible { opacity: 1; transform: translateX(0); }
+
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -2.5rem;
+      top: 0.45rem;
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--ember);
+      border: 2px solid var(--gold-dim);
+      box-shadow: 0 0 10px rgba(184,74,26,0.6);
+    }
+
+    .tl-era {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+    .tl-desc { color: rgba(245,234,208,0.75); font-size: 1rem; line-height: 1.7; }
+
+    /* ─── QUOTE ─── */
+    #quote {
+      text-align: center;
+      padding: 5rem clamp(1.5rem, 10vw, 14rem);
+      position: relative;
+      overflow: hidden;
+    }
+    #quote::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(184,74,26,0.07) 0%, transparent 70%);
+    }
+    #quote blockquote {
+      position: relative;
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+      line-height: 1.6;
+      color: var(--parchment);
+      letter-spacing: 0.01em;
+    }
+    .quote-mark {
+      display: block;
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 5rem;
+      line-height: 0.5;
+      color: var(--gold-dim);
+      opacity: 0.5;
+      margin-bottom: 1rem;
+    }
+    .quote-attr {
+      margin-top: 1.8rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      color: var(--gold-dim);
+      text-transform: uppercase;
+    }
+
+    /* ─── MONOLOGUE ─── */
+    #monologue {
+      border-top: 1px solid rgba(201,168,76,0.08);
+    }
+
+    .monologue-box {
+      position: relative;
+      border: 1px solid rgba(201,168,76,0.18);
+      padding: 3rem 3.5rem;
+      background: rgba(201,168,76,0.02);
+    }
+    .monologue-box::before, .monologue-box::after {
+      content: '';
+      position: absolute;
+      width: 20px; height: 20px;
+      border-color: var(--gold-dim);
+      border-style: solid;
+    }
+    .monologue-box::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+    .monologue-box::after  { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
+
+    .monologue-lines {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 0.6rem;
+    }
+    .monologue-lines li {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: rgba(245,234,208,0.85);
+      padding-left: 1.2rem;
+      border-left: 2px solid transparent;
+      transition: border-color 0.3s, color 0.3s, padding-left 0.3s;
+    }
+    .monologue-lines li:hover {
+      border-left-color: var(--ember);
+      color: var(--parchment);
+      padding-left: 1.8rem;
+    }
+    .speaker-tag {
+      font-family: 'Cinzel', serif;
+      font-style: normal;
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      color: var(--gold-dim);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid rgba(201,168,76,0.08);
+    }
+    .footer-brand {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      color: var(--gold-dim);
+      margin-bottom: 0.8rem;
+    }
+    footer p {
+      font-size: 0.82rem;
+      color: rgba(245,234,208,0.35);
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 600px) {
+      section { padding: 4rem 1.5rem; }
+      .monologue-box { padding: 2rem 1.5rem; }
+      #sticky-nav { gap: 0; }
+      #sticky-nav a { font-size: 0.65rem; padding: 0.5rem 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── HERO ─── -->
+<header>
+  <div class="mandala-ring"></div>
+  <div class="glow-orb"></div>
+
+  <p class="eyebrow">Voices of the Mahabharata</p>
+  <h1>Dronacharya</h1>
+
+  <div class="title-rule"><span>✦</span></div>
+
+  <h2>The Master of Warfare &nbsp;·&nbsp; Guru of Hastinapura</h2>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</header>
+
+<nav id="sticky-nav">
+    <a href="#about">About</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#quote">Quote</a>
+    <a href="#monologue">Monologue</a>
+  </nav>
+
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="section-label">Character Overview</div>
+  <div class="content-wrap">
+    <div class="drona-emblem">
+      <div class="emblem-circle">
+        <span class="emblem-glyph">द्रो</span>
+        <span class="emblem-label">Dronacharya</span>
+      </div>
+    </div>
+    <div>
+      <h3>Who Was Drona?</h3>
+      <p>
+        Dronacharya was the royal guru of Hastinapura — a sage of war, architect of legends, and keeper of celestial weaponry. Born to Sage Bharadwaja, he rose from poverty and broken promises to command the mightiest warriors of his age.
+      </p>
+      <br>
+      <p>
+        He trained both the Pandavas and Kauravas, yet his loyalty was ultimately pledged to the throne that fed him. His life was a relentless tension between dharma and duty, between the teacher's love and the soldier's obligation.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="sep" style="max-width:1100px;margin:0 auto;padding:0 clamp(1.5rem,8vw,10rem)">
+  <div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div>
+</div>
+
+<!-- ─── TIMELINE ─── -->
+<section id="timeline">
+  <div class="section-label">Life &amp; Events</div>
+  <h3>Timeline of Drona</h3>
+
+  <div class="timeline-track">
+
+    <div class="tl-item">
+      <div class="tl-era">Before the War — Birth</div>
+      <p class="tl-desc">Born from a pot to the great Sage Bharadwaja, Drona came into the world destined for mastery — a child of renunciation and sacrifice, raised amid the forests of scripture.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-era">Early Life — Broken Promise</div>
+      <p class="tl-desc">His childhood friend Drupada, once a king's son, swore to share his kingdom with Drona. When Drupada ascended the throne, he refused. This betrayal branded Drona's heart for life.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-era">The Appointment — Royal Guru</div>
+      <p class="tl-desc">Bhishma, seeing Drona's unmatched skill, appointed him preceptor of the Kuru princes. He taught the Pandavas and Kauravas with equal rigour — but Arjuna shone above all.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-era">The Stain — Ekalavya</div>
+      <p class="tl-desc">When the tribal boy Ekalavya mastered archery through a clay idol of Drona, the guru demanded his right thumb as dakshina — ensuring Arjuna's supremacy. A deed history does not forget.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-era">Kurukshetra — The War</div>
+      <p class="tl-desc">Bound by the salt of the Kuru throne, Drona commanded the Kaurava forces. He slew thousands, wept for those he loved across enemy lines, and pressed forward despite his anguish.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-era">The End — Laying Down Arms</div>
+      <p class="tl-desc">When the false news of Ashwatthama's death reached him — whispered by Yudhishthira, the man who never lied — Drona set down his bow. He was struck down in meditation. A warrior undefeated in battle; destroyed by grief.</p>
+    </div>
+
+  </div>
+</section>
+
+<div class="sep" style="max-width:1100px;margin:0 auto;padding:0 clamp(1.5rem,8vw,10rem)">
+  <div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div>
+</div>
+
+<!-- ─── QUOTE ─── -->
+<section id="quote">
+  <blockquote>
+    <span class="quote-mark">"</span>
+    A teacher shapes destiny,<br>yet remains bound by his own choices.
+    <p class="quote-attr">— Dronacharya</p>
+  </blockquote>
+</section>
+
+<div class="sep" style="max-width:1100px;margin:0 auto;padding:0 clamp(1.5rem,8vw,10rem)">
+  <div class="sep-line"></div><div class="sep-diamond"></div><div class="sep-line"></div>
+</div>
+
+<!-- ─── MONOLOGUE ─── -->
+<section id="monologue">
+  <div class="section-label">Inner Voice</div>
+  <h3>Creative Monologue</h3>
+
+  <div class="monologue-box">
+    <p class="speaker-tag">Drona Speaks —</p>
+    <ul class="monologue-lines">
+      <li>I am Drona, son of Bharadwaja — born not of a womb, but of a vessel.</li>
+      <li>I forged warriors from fire and discipline. I made greatness out of mortal clay.</li>
+      <li>I saw Arjuna and knew — this one shall surpass all. I promised him the stars.</li>
+      <li>Yet I too was chained. By pride. By bread. By the throne that gave me honour.</li>
+      <li>Ekalavya knelt before my image, and I took his thumb. I tell myself it was dharma.</li>
+      <li>Was it? Or was it fear wearing the mask of a teacher's obligation?</li>
+      <li>When the false death of my son broke upon me like a wave —</li>
+      <li>I let go. Not of my bow. Of everything.</li>
+      <li>Was I villain or father? Commander or coward?</li>
+      <li>History shall decide. I am already gone.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <p class="footer-brand">Voices of the Mahabharata</p>
+  <p>Submitted by: Thilak Sujan &nbsp;|&nbsp; Roll No: CB.EN.U4CCE24056</p>
+</footer>
+
+<script>
+  // Intersection Observer for timeline items
+  const items = document.querySelectorAll('.tl-item');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 120);
+      }
+    });
+  }, { threshold: 0.15 });
+  items.forEach(el => observer.observe(el));
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('#sticky-nav a');
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector('#sticky-nav a[href="#' + entry.target.id + '"]');
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => navObserver.observe(s));
+</script>
+
+</body>
+</html>
