@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dronacharya – The Master of Warfare</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
   <style>
@@ -366,10 +367,7 @@
       width: 100%;
     }
 
-    @media (max-width: 700px) {
-      #about .content-wrap { grid-template-columns: 1fr; gap: 2rem; }
-      .drona-emblem { margin-bottom: 1rem; }
-    }
+
 
     /* ─── TIMELINE ─── */
     #timeline { background: none; }
@@ -665,7 +663,6 @@
       gap: 2rem;
       margin-top: 1rem;
     }
-    @media (max-width: 640px) { .legacy-cols { grid-template-columns: 1fr; } }
     .legacy-col h4 {
       font-family: 'Cinzel', serif;
       font-size: 0.75rem;
@@ -932,7 +929,7 @@
 
     @media (max-width: 768px) {
       .hero-topbar-links { display: none; }
-      .hero-topbar { justify-content: center; }
+      .hero-topbar { justify-content: center; height: 54px; }
     }
 
 
@@ -1090,12 +1087,194 @@
     }
     #sticky-nav a.active::after { opacity: 1; }
 
-    @media (max-width: 600px) {
-      section { padding: 4rem 1.5rem; }
-      .monologue-box { padding: 2rem 1.5rem; }
-      #sticky-nav { gap: 0; }
-      #sticky-nav a { font-size: 0.65rem; padding: 0.5rem 0.9rem; }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE — TABLET  ≤ 900px
+    ════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      /* Hero badges wrap to 2×2 */
+      .hero-badges {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.6rem;
+        width: min(360px, 90vw);
+      }
+      /* Traits strip wrap */
+      .traits-strip {
+        flex-wrap: wrap;
+      }
+      .trait {
+        min-width: 45%;
+        border-bottom: 1px solid rgba(79,195,247,0.1);
+      }
     }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE — MOBILE  ≤ 640px
+    ════════════════════════════════════════ */
+    @media (max-width: 640px) {
+
+      /* ── GLOBAL ── */
+      section {
+        padding: 3.5rem 1.2rem;
+      }
+      h3 {
+        font-size: 1.2rem;
+      }
+      p, .tl-desc, .rel-desc, .dilemma-body, .weapon-desc, .fact-text {
+        font-size: 0.97rem;
+        line-height: 1.75;
+      }
+
+      /* ── HERO ── */
+      header {
+        padding: 5rem 1.2rem 2rem;
+        min-height: 100svh;
+      }
+      .eyebrow {
+        font-size: 0.58rem;
+        letter-spacing: 0.3em;
+        margin-bottom: 1rem;
+      }
+      header h1 {
+        font-size: clamp(2.4rem, 11vw, 3.5rem);
+        letter-spacing: 0.03em;
+      }
+      header h2 {
+        font-size: 0.95rem;
+        letter-spacing: 0.04em;
+      }
+      .title-rule { margin: 1rem auto; width: 70vw; }
+
+      /* Hero badges — single column */
+      .hero-badges {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        width: 100%;
+        margin-top: 1.8rem;
+      }
+      .badge { padding: 0.75rem 0.8rem; }
+      .badge-label { font-size: 0.46rem; }
+      .badge-value { font-size: 0.88rem; }
+
+      /* IG button */
+      .hero-ig-btn {
+        font-size: 0.65rem;
+        padding: 0.75rem 1.4rem 0.75rem 1.1rem;
+        letter-spacing: 0.18em;
+      }
+
+      /* Hero topbar */
+      .hero-topbar { padding: 0 1rem; height: 54px; }
+      .hero-topbar-brand-text { display: none; }
+
+      /* Mandala — scale down */
+      .mandala-wrap { transform: scale(0.6) translate(-50%, -50%); transform-origin: top left; }
+
+      /* ── STICKY NAV ── */
+      #sticky-nav {
+        gap: 0.3rem;
+        padding: 0.6rem 0.8rem;
+        justify-content: flex-start;
+      }
+      #sticky-nav a {
+        font-size: 0.55rem;
+        padding: 0.5rem 0.75rem;
+        letter-spacing: 0.15em;
+      }
+
+      /* ── ABOUT ── */
+      #about .content-wrap {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .drona-emblem { margin-bottom: 0.5rem; }
+      .emblem-circle { width: 130px; height: 130px; }
+      .emblem-glyph { font-size: 2.6rem; }
+
+      /* ── TIMELINE ── */
+      .timeline-track { padding-left: 1.8rem; }
+      .tl-item { margin-bottom: 2rem; }
+      .tl-era { font-size: 0.6rem; }
+
+      /* ── QUOTE ── */
+      #quote { padding: 3.5rem 1.2rem; }
+      .quote-mark { font-size: 3.5rem; }
+      #quote blockquote { font-size: 1.15rem; }
+
+      /* ── MONOLOGUE ── */
+      .monologue-box { padding: 1.8rem 1.2rem; }
+      .monologue-lines li { font-size: 1rem; padding-left: 0.8rem; }
+      .monologue-lines li:hover { padding-left: 1.2rem; }
+
+      /* ── WEAPONS ── */
+      .weapons-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .weapon-card { padding: 1.4rem 1.2rem; }
+      .weapon-icon { font-size: 1.6rem; }
+      .weapon-name { font-size: 0.82rem; }
+
+      /* ── TRAITS ── */
+      .traits-strip { flex-direction: column; }
+      .trait {
+        min-width: 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(79,195,247,0.1);
+        padding: 1.2rem 1rem;
+      }
+      .trait:last-child { border-bottom: none; }
+      .trait-pct { font-size: 1.6rem; }
+
+      /* ── RELATIONSHIPS ── */
+      .rel-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .rel-card { padding: 1.5rem 1.2rem; }
+      .rel-person { font-size: 0.92rem; }
+
+      /* ── DILEMMAS ── */
+      .dilemma { grid-template-columns: 2.2rem 1fr; gap: 0.8rem; }
+      .dilemma-num { font-size: 1.2rem; }
+      .dilemma-title { font-size: 0.78rem; }
+
+      /* ── LEGACY ── */
+      .legacy-cols { grid-template-columns: 1fr; gap: 1.5rem; }
+      .legacy-col ul li { font-size: 0.95rem; }
+
+      /* ── FACTS STRIP ── */
+      .facts-strip { padding: 2.5rem 1.2rem; }
+      .facts-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .fact { padding: 1.2rem 0.8rem; }
+      .fact-emoji { font-size: 1.4rem; }
+      .fact-text { font-size: 0.85rem; }
+
+      /* ── EPITAPH ── */
+      .epitaph { padding: 4rem 1.2rem; }
+      .epitaph p { font-size: 1rem; line-height: 1.8; }
+
+      /* ── SEPARATORS ── */
+      .sep { padding: 0.5rem 1.2rem !important; }
+      .sep-line { max-width: 80px !important; }
+
+      /* ── FOOTER ── */
+      .footer-meta { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+      .footer-divider { display: none; }
+      .footer-brand { font-size: 0.75rem; }
+    }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE — TINY  ≤ 380px
+    ════════════════════════════════════════ */
+    @media (max-width: 380px) {
+      header h1 { font-size: 2.2rem; }
+      .hero-badges { grid-template-columns: 1fr 1fr; }
+      .badge-value { font-size: 0.8rem; }
+      #sticky-nav a { font-size: 0.5rem; padding: 0.45rem 0.6rem; letter-spacing: 0.1em; }
+      .facts-grid { grid-template-columns: 1fr; }
+    }
+
   </style>
 </head>
 <body>
